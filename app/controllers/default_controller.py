@@ -23,7 +23,7 @@ def build_info_get():
             config = json.load(f)
             build_info = BuildInfo(config['name'], config['version'])
     except Exception as e:
-        return e
+        logger.warning(e)
     return build_info
 
 
