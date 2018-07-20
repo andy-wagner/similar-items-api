@@ -1,0 +1,103 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "similar-items-api"
+host: "127.0.0.1:8080"
+basePath: "/"
+schemes:
+- "http"
+paths:
+  /:
+    get:
+      summary: "Returns the build info"
+      operationId: "build_info_get"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/BuildInfo"
+      x-swagger-router-controller: "app.controllers.default_controller"
+  /similar/{id}:
+    post:
+      summary: "Returns the set of items ordered by similarity, compared to the given\
+        \ item"
+      operationId: "similar_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ItemSet"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/ResultItemSet"
+      x-swagger-router-controller: "app.controllers.default_controller"
+definitions:
+  BuildInfo:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      version:
+        type: "string"
+    example:
+      name: "name"
+      version: "version"
+  Item:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      id:
+        type: "string"
+      similarity:
+        type: "number"
+    example:
+      name: "name"
+      id: "id"
+  ItemSet:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Item"
+    example:
+      data:
+      - name: "name"
+        id: "id"
+      - name: "name"
+        id: "id"
+  ResultItemSet:
+    type: "object"
+    properties:
+      result:
+        $ref: "#/definitions/Item"
+      similar:
+        type: "array"
+        items:
+          $ref: "#/definitions/Item"
+      count:
+        type: "integer"
+    example:
+      result:
+        name: "name"
+        id: "id"
+      similar:
+      - name: "name"
+        id: "id"
+      - name: "name"
+        id: "id"
+      count: 0
