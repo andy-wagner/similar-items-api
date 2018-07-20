@@ -45,7 +45,9 @@ docker run -p 8080:8080 app
 ## Examples
 The following example returns the most similar items (from the passed items) to item#4 (Mini Spy Hidden Camera ...). The similar items are also ordered by their similarity.
 
-###Request
+Request
+
+To get similar items to item4 from a collection of items
 
 ```
 curl -i -X POST \
@@ -87,7 +89,10 @@ curl -i -X POST \
  'http://127.0.0.1:8080/similar/item4'
 ```
 
-###Response
+Response
+
+The most similar items to item4: Mini Spy Hidden Camera ... are:
+
 
 ```
 {
